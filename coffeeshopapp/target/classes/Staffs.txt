@@ -1,0 +1,3 @@
+1#Nguyen Van Thu#1#Khanh Hoa#25/12/2000#25/04/2020#BARTENDER
+2#Phan Thanh Quy#3#Daklak#19/09/0001#15/01/2021#RECEPTIONIST
+3#Le Van Chuong#1#Binh Thuan#12/04/2000#12/07/2021#WAITER

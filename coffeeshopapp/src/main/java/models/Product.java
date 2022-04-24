@@ -1,5 +1,6 @@
 package models;
 
+import base.IModel;
 import enumerate.State;
 import enumerate.Time;
 import utils.Utils;
@@ -8,10 +9,15 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class Product{
+public class Product implements IModel {
     protected int pk;
     protected static int count = 0;
     {
+        try {
+            Product.setCount(Utils.getCount(2));
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
         pk = ++count; // primary key auto increase
     }
     protected String name;
@@ -68,9 +74,11 @@ public class Product{
 
 
     // method
+    @Override
     public void show(){
         System.out.println(this);
     }
+    @Override
     public void create(){
         int numTime;
         int numState;
@@ -107,9 +115,19 @@ public class Product{
         }
 
     }
+    @Override
+    public void writeIntoFile(){
+        return;
+    }
+    @Override
     public String toString(){
         return String.format("Product ID: %d\nName: %s\nState: %s\nPrice: %,.0f VND\nTime of sale: %s\n",
-               this.pk, this.name, this.state.getValue(), this.price, this.timeOfSale.getValue());
+                this.pk, this.name, this.state.getValue(), this.price, this.timeOfSale.getValue());
     }
+
+    public Product create(String productString){
+        return this;
+    }
+
 
 }

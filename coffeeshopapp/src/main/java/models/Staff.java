@@ -1,14 +1,17 @@
 package models;
 
+import base.IModel;
 import enumerate.Gender;
 import services.DepartmentService;
 import services.StaffService;
 import utils.Utils;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Date;
 
-public class Staff {
+public class Staff implements IModel {
     private int pk;
     private static int count = 0;
     {
@@ -86,6 +89,7 @@ public class Staff {
     }
 
     // method
+    @Override
     public void create(){
         try {
             System.out.print("Please enter the new staff's name: ");
@@ -104,13 +108,30 @@ public class Staff {
             this.department = DepartmentService.getListDepartment().get(Integer.parseInt(Utils.getScanner().nextLine()) - 1);
             Utils.setCount(0);
             StaffService.getListStaff().add(this);
-            StaffService.writeStaffIntoFile(this);
+            this.writeIntoFile();
         }catch (Exception ex){
             System.out.println(ex.getMessage());
         }
     }
+    @Override
     public void show(){
         System.out.println(this);
+    }
+    @Override
+    public void writeIntoFile(){
+        try {
+            File file = new File(StaffService.getFileStaffs());
+            FileWriter fileWriter = new FileWriter(file,true);
+            fileWriter.write(String.format("%d#%s#%d#%s#%s#%s#%s\n",
+                    this.getPk(),this.getName(),this.getSex().getInt(),
+                    this.getHomeTown(),
+                    Utils.getSimpleDateFormat().format(this.getDob()),Utils.getSimpleDateFormat().format(this.getJoinDate()),
+                    this.getDepartment().getName()));
+            // PK # Name # Sex # HomeTown # DOB # JD # Department
+            fileWriter.close();
+        }catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
     }
     @Override
     public String toString(){

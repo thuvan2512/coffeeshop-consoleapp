@@ -49,7 +49,10 @@ public class Order {
     }
     //method
     public double getTotalPrice(){
-        return ProductService.findProductByID(this.productID).getPrice() * this.quantity;
+        if (ProductService.findProductByID(this.productID) != null){
+            return ProductService.findProductByID(this.productID).getPrice() * this.quantity;
+        }
+        return 0;
     }
 
 }

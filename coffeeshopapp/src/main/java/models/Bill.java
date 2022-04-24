@@ -1,7 +1,11 @@
 package models;
 
+import services.BillService;
 import utils.Utils;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -55,6 +59,25 @@ public class Bill {
         this.tableID = tableID;
     }
     //method
+    public void writeBillIntoFile() {
+        try {
+            File file = new File(BillService.getFileBill());
+            String listOrder = "";
+            for (int i = 0;i < this.getListOrder().size();i++){
+                if (i+1 != this.getListOrder().size())
+                    listOrder += String.format("%d-%d@",this.getListOrder().get(i).getProductID(),this.getListOrder().get(i).getQuantity());
+                else
+                    listOrder += String.format("%d-%d",this.getListOrder().get(i).getProductID(),this.getListOrder().get(i).getQuantity());
+            }
+            FileWriter fileWriter = new FileWriter(file,true);
+            fileWriter.write(String.format("%s#%s#%s#%b#%s\n",this.getBillID(),this.getTableID(),
+                    Utils.getSimpleDateFormat().format(this.getInitDate()),this.getPaymentStatus(), listOrder));
+            // billID # tableID # initDate # paymentStatus # listOder
+            fileWriter.close();
+        }catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
+    }
     public double getTotalPriceOfBill(){
         double totalPrice = 0;
         for (int i = 0;i < this.listOrder.size();i++){

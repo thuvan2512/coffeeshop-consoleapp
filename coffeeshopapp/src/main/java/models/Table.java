@@ -1,11 +1,14 @@
 package models;
 
+import base.IModel;
 import services.TableService;
 import utils.Utils;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 
-public class Table{
+public class Table implements IModel {
     private String pk;
     private static int count = 0;
     {
@@ -55,9 +58,11 @@ public class Table{
         return "no empty";
     }
     // method
+    @Override
     public void show(){
         System.out.println(this);
     }
+    @Override
     public void create() {
         try {
             do {
@@ -69,11 +74,25 @@ public class Table{
             }while (this.capacity <= 0);
             Utils.setCount(1);
             TableService.getListTable().add(this);
-            TableService.writeTableIntoFile(this);
+            this.writeIntoFile();
         }catch (Exception ex){
             System.out.println(ex.getMessage());
         }
     }
+    @Override
+    public void writeIntoFile(){
+        try {
+            File file = new File(TableService.getFileTable());
+            FileWriter fileWriter = new FileWriter(file,true);
+            int emp = this.isEmpty() ? 1:0;
+            fileWriter.write(String.format("%s#%d#%d\n", this.getPk(),this.getCapacity(),emp));
+            // PK # Capacity # isEmpty
+            fileWriter.close();
+        }catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
+    }
+    @Override
     public String toString(){
         return String.format("Table ID: %s\nCapacity: %d\nstatus: %s\n",this.pk,this.capacity,Table.getState(this.isEmpty));
     }

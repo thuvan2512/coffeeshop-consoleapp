@@ -375,6 +375,38 @@ public class Presentation {
             Presentation.exit();
     }
 
+    private static void optionAddNewProduct(){
+        int chooseCate;
+        try {
+            do {
+                System.out.println("\t\t|\t1. Food");
+                System.out.println("\t\t|\t2. Drink ");
+                System.out.println("\t\t|\t0. Cancel ");
+                System.out.print("\t\t|\t=> Your choose: ");
+                chooseCate = Integer.parseInt(Utils.getScanner().nextLine());
+                if (chooseCate > 2 || chooseCate < 0)
+                    System.out.println(">>>>>>> INVALID VALUE. PLEASE TRY AGAIN !!! <<<<<<<");
+            } while (chooseCate > 2 || chooseCate < 0);
+        } catch (Exception ex) {
+            chooseCate = -1;
+            System.out.println(ex.getMessage());
+        }
+        if (chooseCate == 1){
+            Food food = new Food();
+            food.create();
+            System.out.println("Add product successfully !!!!!!");
+            food.show();
+        }
+        else if (chooseCate == 2){
+            Drinks drinks = new Drinks();
+            drinks.create();
+            System.out.println("Add product successfully !!!!!!");
+            drinks.show();
+        }
+        else {
+            System.out.println("The action has been canceled !!!!!!");
+        }
+    }
     private static void optionDeleteProduct() throws IOException, ParseException {
         int pk;
         try {
@@ -430,9 +462,9 @@ public class Presentation {
         if (choose <= 2 && choose >= 0){
             switch (choose){
                 case 0:
-                    ProductService.showListProduct(ProductService.getListProduct());
-                    System.out.println(ProductService.getListProduct().size());
-//                    Presentation.showOption03();
+//                    ProductService.showListProduct(ProductService.getListProduct());
+//                    System.out.println(ProductService.getListProduct().size());
+                    Presentation.showOption03();
                     break;
                 case 1:
                     System.out.print("\t\t|\tEnter name of product to search: ");
@@ -704,38 +736,7 @@ public class Presentation {
                     Presentation.showMenu();
                     break;
                 case 1:
-                    int chooseCate;
-                    try {
-                        do {
-                            System.out.println("\t\t|\t1. Food");
-                            System.out.println("\t\t|\t2. Drink ");
-                            System.out.println("\t\t|\t0. Cancel ");
-                            System.out.print("\t\t|\t=> Your choose: ");
-                            chooseCate = Integer.parseInt(Utils.getScanner().nextLine());
-                            if (chooseCate > 2 || chooseCate < 0)
-                                System.out.println(">>>>>>> INVALID VALUE. PLEASE TRY AGAIN !!! <<<<<<<");
-                        } while (chooseCate > 2 || chooseCate < 0);
-                    } catch (Exception ex) {
-                        chooseCate = -1;
-                        System.out.println(ex.getMessage());
-                    }
-                    if (chooseCate == 1){
-                        Food food = new Food();
-                        food.create();
-                        ProductService.getListProduct().add(food);
-                        System.out.println("Add product successfully !!!!!!");
-                        food.show();
-                    }
-                    else if (chooseCate == 2){
-                        Drinks drinks = new Drinks();
-                        drinks.create();
-                        ProductService.getListProduct().add(drinks);
-                        System.out.println("Add product successfully !!!!!!");
-                        drinks.show();
-                    }
-                    else {
-                        System.out.println("The action has been canceled !!!!!!");
-                    }
+                    Presentation.optionAddNewProduct();
                     break;
                 case 2:
                     Presentation.optionDeleteProduct();

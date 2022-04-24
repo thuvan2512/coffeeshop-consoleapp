@@ -1,3 +1,6 @@
+import models.Drinks;
+import models.Food;
+import models.Product;
 import services.DepartmentService;
 import utils.Presentation;
 
@@ -8,6 +11,5 @@ public class Application {
     public static void main(String[] args) throws ParseException, IOException {
         DepartmentService.initListDepartment();
         Presentation.showMenu();
-
     }
 }

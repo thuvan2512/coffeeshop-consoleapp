@@ -6,6 +6,7 @@ import utils.Utils;
 
 public class Order {
     private String OrderID;
+    private String billID = null;
     private int productID;
     private String tableID;
     private int quantity = 0;
@@ -14,6 +15,13 @@ public class Order {
     }
 
     //getter and setter
+
+    public String getBillID() {
+        return billID;
+    }
+    public void setBillID(String billID) {
+        this.billID = billID;
+    }
     public String getOrderID() {
         return OrderID;
     }

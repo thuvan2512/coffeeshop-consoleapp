@@ -30,6 +30,10 @@ public class StaffService {
     public static String getFileStaffs() {
         return fileStaffs;
     }
+    public static ArrayList<Staff> getListStaff() {
+        return StaffService.listStaff;
+    }
+
     public static void readFile(){
         try {
             StaffService.listStaff = new ArrayList<Staff>();
@@ -63,10 +67,6 @@ public class StaffService {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-    }
-
-    public static ArrayList<Staff> getListStaff() {
-        return StaffService.listStaff;
     }
     public static void showListStaff(ArrayList<Staff> list){
         if(list.size() == 0){
@@ -102,7 +102,7 @@ public class StaffService {
             StaffService.writeListIntoFile();
         }
     }
-    public static void deleteStaffByID(int pk) throws IOException {
+    public static void deleteStaffByID(int pk)  {
         StaffService.listStaff.remove(StaffService.findStaffByID(pk));
         StaffService.writeListIntoFile();
     }

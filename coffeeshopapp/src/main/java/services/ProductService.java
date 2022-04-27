@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ProductService {
+public class ProductService{
     private static ArrayList<Product> listProduct = new ArrayList<>();
     private final static String fileProduct = "src/main/resources/Products.txt";
     static {
@@ -84,7 +84,7 @@ public class ProductService {
     }
     public static ArrayList<Product> reverseListProduct(boolean increase){
         ArrayList<Product> kq;
-        kq = ProductService.listProduct;
+        kq = (ArrayList<Product>) ProductService.listProduct.clone();
         int k = (increase)? 1:-1;
         kq.sort((f1,f2) -> {
             if (f1.getPrice() > f2.getPrice()){
@@ -96,7 +96,7 @@ public class ProductService {
         });
         return kq;
     }
-    public static void updateState(int pk,State state) throws IOException {
+    public static void updateState(int pk,State state){
         if(ProductService.findProductByID(pk) != null){
             Product product = ProductService.findProductByID(pk);
             product.setState(state);
@@ -135,4 +135,5 @@ public class ProductService {
             System.out.println(ex.getMessage());
         }
     }
+
 }

@@ -1,6 +1,7 @@
 package models;
 
 import base.IModel;
+import base.IProduct;
 import enumerate.State;
 import enumerate.Time;
 import utils.Utils;
@@ -9,7 +10,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class Product implements IModel {
+public class Product implements IModel, IProduct {
     protected int pk;
     protected static int count = 0;
     {

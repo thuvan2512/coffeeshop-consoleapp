@@ -1,5 +1,6 @@
 package models;
 
+import base.IProduct;
 import enumerate.State;
 import enumerate.Time;
 import services.ProductService;
